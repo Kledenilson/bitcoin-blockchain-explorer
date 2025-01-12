@@ -1,0 +1,16 @@
+{
+    "navbar_title": "Doidos Descentralizados - Bitcoin Blockchain Explorer",
+    "footer_text": "© 2025 Explorador Blockchain - Dojo NearX",
+    "block_query_title": "Consulta de Bloco",
+    "block_query_placeholder": "Número do Bloco",
+    "block_query_button": "Buscar",
+    "transaction_query_title": "Consulta de Transação",
+    "transaction_query_placeholder": "Hash da Transação",
+    "transaction_query_button": "Buscar",
+    "wallet_query_title": "Consulta de Saldo",
+    "wallet_query_placeholder": "Endereço da Carteira",
+    "wallet_query_button": "Buscar",
+    "site_name":"Doidos Descentralizados - Bitcoin Blockchain Explorer",
+    "site_footer_name": " Desenvolvido no Dojo da NearX School"
+  }
+  

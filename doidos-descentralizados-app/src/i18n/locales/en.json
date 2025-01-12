@@ -1,0 +1,17 @@
+{
+    "navbar_title": "Descentrilized Crazies - Bitcoin Blockchain Explorer",
+    "footer_text": "© 2025 Blockchain Explorer - Dojo NearX",
+    "block_query_title": "Block Query",
+    "block_query_placeholder": "Block Number",
+    "block_query_button": "Search",
+    "transaction_query_title": "Transaction Query",
+    "transaction_query_placeholder": "Transaction Hash",
+    "transaction_query_button": "Search",
+    "wallet_query_title": "Wallet Balance Query",
+    "wallet_query_placeholder": "Wallet Address",
+    "wallet_query_button": "Search",
+    "site_name":"Descentrilized Crazies - Bitcoin Blockchain Explorer",
+    "site_footer_name": " Development in Dojo Project on NearX School"
+
+  }
+  

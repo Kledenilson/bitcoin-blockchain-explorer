@@ -1,0 +1,38 @@
+{
+    "name": "doidos-descentralizados",
+    "version": "1.0.0",
+    "description": "Um app para explorar sua Regtest.",
+    "main": "./src/index.js",
+    "proxy": "http://localhost:5000",
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    },
+    "dependencies": {
+      "axios": "^1.4.0",
+      "i18next": "^23.3.0",
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0",
+      "react-i18next": "^13.0.0",
+      "react-scripts": "5.0.1",
+      "styled-components": "^6.0.0"
+    },
+    "devDependencies": {
+      "i18next-browser-languagedetector": "^7.0.0"
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    }
+  }
+  
