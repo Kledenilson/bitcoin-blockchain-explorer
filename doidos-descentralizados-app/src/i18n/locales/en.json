@@ -11,7 +11,16 @@
     "wallet_query_placeholder": "Wallet Address",
     "wallet_query_button": "Search",
     "site_name":"Descentrilized Crazies - Bitcoin Blockchain Explorer",
-    "site_footer_name": " Development in Dojo Project on NearX School"
-
+    "site_footer_name": " Development in Dojo Project on NearX Innovation School",
+    "dashboard_blocks_title": "Blocks",
+    "dashboard_transactions_title": "Transactions",
+    "dashboard_wallet_title":"Wallets",
+    "navbar_options_title":"Blockchain Wallet",
+    "Send": "Send",
+    "Wallet": "Wallet",
+    "Transactions": "Transactions",
+    "Sign": "Sign",
+    "Configurations": "Configurations",
+    "Exit":" Exit"
   }
   

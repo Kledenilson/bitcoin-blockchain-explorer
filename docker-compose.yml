@@ -8,8 +8,7 @@ services:
       - 18444:18444
     volumes:
       - ./api/bitcoin-data:/root/.bitcoin # Criei um volume persistente
-      - ./api/init.sh:/init.sh # Script de inicialização
-    #entrypoint: ["/bin/bash", "-c", "sleep 10 && /init.sh"]
+      - ./api/init.sh:/init.sh # Script sh para gerar a carteira inicial e blocos
     restart: unless-stopped
 
   doidos-descentralizados-api:
@@ -34,9 +33,9 @@ services:
       dockerfile: ./Dockerfile
     container_name: doidos-descentralizados-app    
     ports:
-      - "3000:3000" # Porta exposta pelo container
+      - "3000:3000"
     volumes:
-      - ./doidos-descentralizados-app/:/usr/src/app # Mapeamento para desenvolvimento local
+      - ./doidos-descentralizados-app/:/usr/src/app
       - /usr/src/app/node_modules # Evita conflitos com o host
     environment:
       - CHOKIDAR_USEPOLLING=true # Necessário para monitorar alterações no Docker

@@ -11,6 +11,16 @@
     "wallet_query_placeholder": "Endereço da Carteira",
     "wallet_query_button": "Buscar",
     "site_name":"Doidos Descentralizados - Bitcoin Blockchain Explorer",
-    "site_footer_name": " Desenvolvido no Dojo da NearX School"
+    "site_footer_name": " Desenvolvido no Dojo da NearX Innovation School",
+    "dashboard_blocks_title": "Blocos",
+    "dashboard_transactions_title": "Transações",
+    "dashboard_wallet_title":"Carteiras",
+    "navbar_options_title":" Carteira Blockchain",
+    "Send": "Enviar",
+    "Wallet": "Carteira",
+    "Transactions": "Transações",
+    "Sign": "Assinar",
+    "Configurations": "Configurações",
+    "Exit":" Sair"
   }
   
