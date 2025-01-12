@@ -21,10 +21,11 @@ fi
 
 echo "Verificando blocos gerados..."
 CURRENT_BLOCKS=$(bitcoin-cli  getblockcount)
-if [ "$CURRENT_BLOCKS" -lt 200 ]; then
-    echo "Gerando 200 blocos..."
+NUMBER_BLOCKS=428
+if [ "$CURRENT_BLOCKS" -lt "$NUMBER_BLOCKS" ]; then
+    echo "Gerando $NUMBER_BLOCKS blocos..."
     ADDRESS=$(bitcoin-cli -regtest getnewaddress)
-    bitcoin-cli -regtest generatetoaddress 200 $ADDRESS
+    bitcoin-cli -regtest generatetoaddress $NUMBER_BLOCKS $ADDRESS
 else
     echo "Blocos já gerados. Total de blocos: $CURRENT_BLOCKS"
 fi
