@@ -120,30 +120,35 @@ def get_wallet_count():
 
 @app.route('/api/rpc-command', methods=['POST'])
 def execute_rpc_command():
-    try:
-        # Obtenha o comando e os argumentos enviados pelo cliente
+    try:        
         command = request.json.get('command')
         args = request.json.get('args', [])
-        
+
         if not command:
             return jsonify({'error': 'Comando vazio não é permitido.'}), 400
 
-        # Obtenha a conexão RPC
         rpc = get_rpc_connection()
 
-        # Execute o comando usando o método apropriado
         method = getattr(rpc, command, None)
         if not method:
             return jsonify({'error': f'Comando {command} não reconhecido pelo Bitcoin Core.'}), 400
         
-        # Envia os argumentos ao método RPC
-        result = method(*args)
+        typed_args = []
+        for arg in args:
+            try:                
+                if isinstance(arg, str) and arg.isdigit():
+                    typed_args.append(int(arg))
+                else:
+                    typed_args.append(arg)
+            except ValueError:
+                typed_args.append(arg)
+        
+        result = method(*typed_args)
         return jsonify({'result': result})
     except JSONRPCException as e:
-        return jsonify({'error': str(e)}), 400
+        return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
+        return jsonify({'error': f'Erro inesperado: {str(e)}'}), 500
 
 
 if __name__ == '__main__':
