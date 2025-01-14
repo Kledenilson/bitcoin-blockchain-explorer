@@ -1,4 +1,5 @@
 import os
+import subprocess
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
@@ -115,6 +116,35 @@ def get_wallet_count():
         return jsonify({'wallet_count': wallet_count, 'wallets': wallets})
     except JSONRPCException as e:
         return jsonify({'error': str(e)}), 400
+        
+
+@app.route('/api/rpc-command', methods=['POST'])
+def execute_rpc_command():
+    try:
+        # Obtenha o comando e os argumentos enviados pelo cliente
+        command = request.json.get('command')
+        args = request.json.get('args', [])
+        
+        if not command:
+            return jsonify({'error': 'Comando vazio não é permitido.'}), 400
+
+        # Obtenha a conexão RPC
+        rpc = get_rpc_connection()
+
+        # Execute o comando usando o método apropriado
+        method = getattr(rpc, command, None)
+        if not method:
+            return jsonify({'error': f'Comando {command} não reconhecido pelo Bitcoin Core.'}), 400
+        
+        # Envia os argumentos ao método RPC
+        result = method(*args)
+        return jsonify({'result': result})
+    except JSONRPCException as e:
+        return jsonify({'error': str(e)}), 400
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

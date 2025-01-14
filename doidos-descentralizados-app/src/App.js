@@ -9,6 +9,9 @@ import { useTranslation } from "react-i18next";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import axios from "./services/api";
+import api from './services/api';
+import InteractiveTerminal from "./InteractiveTerminal";
+import Terminal from "./components/Terminal";
 
 const Container = styled.div`
   display: flex;
@@ -27,35 +30,54 @@ const Main = styled.main`
 
 function App() {
   const { t } = useTranslation();
-  const [stats, setStats] = useState({
-    blocks: 0,
-    transactions: 0,
-    wallets: 0,
-  });
+  const [blocks, setBlocks] = useState(0);
+  const [transactions, setTransactions] = useState(0);
+  const [wallets, setWallets] = useState(0);
 
-  useEffect(() => {
-    
-    const fetchStats = async () => {
+   useEffect(() => {
+    // buscar o número de blocos
+    const fetchBlocks = async () => {
       try {
-        const responseBlocks = await axios.get("/block/count");
-        const responseTransactions = await axios.get("/transaction/count");
-        const responseWallets = await axios.get("/wallet/count");
-
-        setStats({
-          blocks: responseBlocks.data.block_count || 0,
-          transactions: responseTransactions.data.transaction_count || 0,
-          wallets: responseWallets.data.wallet_count || 0,
-        });
+        const response = await axios.get("/block/count");
+        setBlocks(response.data.block_count || 0);
       } catch (error) {
-        console.error("Erro ao buscar estatísticas:", error);
+        console.error("Erro ao buscar número de blocos:", error);
       }
     };
 
-    fetchStats();
+    // buscar o número de transações
+    const fetchTransactions = async () => {
+      try {
+        const response = await axios.get("/transaction/count");
+        setTransactions(response.data.transaction_count || 0);
+      } catch (error) {
+        console.error("Erro ao buscar número de transações:", error);
+      }
+    };
 
-    const interval = setInterval(fetchStats, 50000);
+    // buscar o número de carteiras
+    const fetchWallets = async () => {
+      try {
+        const response = await axios.get("/wallet/count");
+        setWallets(response.data.wallet_count || 0);
+      } catch (error) {
+        console.error("Erro ao buscar número de carteiras:", error);
+      }
+    };
 
-    return () => clearInterval(interval);
+    fetchBlocks();
+    fetchTransactions();
+    fetchWallets();
+    
+    const blocksInterval = setInterval(fetchBlocks, 20000);
+    const transactionsInterval = setInterval(fetchTransactions, 10000);
+    const walletsInterval = setInterval(fetchWallets, 50000);
+    
+    return () => {
+      clearInterval(blocksInterval);
+      clearInterval(transactionsInterval);
+      clearInterval(walletsInterval);
+    };
   }, []);
 
   return (
@@ -63,10 +85,15 @@ function App() {
       <Navbar />
       <Main>
         <Header/>
-        <Dashboard stats={stats} />
+        <Dashboard  stats={{
+          blocks,
+          transactions,
+          wallets,
+        }} />
         <BlockQuery />
         <TransactionQuery />
         <WalletBalanceQuery />
+        <Terminal/>
       </Main>
       <Footer />
     </Container>
