@@ -55,7 +55,7 @@ function Dashboard({ stats }) {
       <Card bgColor="#e67e22"> {}
         <CardTitle>{t("dashboard_wallet_title")}</CardTitle>
         <CardValue>{stats.wallets || 0}</CardValue>
-      </Card>
+      </Card> 
     </DashboardWrapper>
   );
 }

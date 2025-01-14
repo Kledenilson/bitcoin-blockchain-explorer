@@ -4,6 +4,8 @@ import axios from "../services/api";
 import { useTranslation } from "react-i18next";
 import SearchButton from "./SearchButtom";
 import Modal from "./Modal";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const Wrapper = styled.div`
@@ -40,9 +42,9 @@ const ModalContent = styled.div`
   padding: 20px;
   border-radius: 10px;
   max-width: 600px;
-  max-height: 90%; /* Limita a altura da modal */
+  max-height: 90%;
   width: 90%;
-  overflow-y: auto; /* Adiciona scroll vertical se o conteúdo ultrapassar a altura */
+  overflow-y: auto;
   text-align: left;
   position: relative;
 `;
@@ -72,6 +74,10 @@ function TransactionQuery() {
       setIsModalOpen(true);
     } catch (error) {
       console.error("Error fetching transaction:", error);
+      toast.error(t("transaction_query_error" + error), { 
+              position: "bottom-right",
+              autoClose: 3000,
+      });      
     }
   };
 
@@ -89,6 +95,7 @@ function TransactionQuery() {
         value={txHash}
         onChange={(e) => setTxHash(e.target.value)}
       />
+      <ToastContainer />
       <SearchButton onClick={fetchTransaction}>{t("transaction_query_button")}</SearchButton>
      
       {isModalOpen && (

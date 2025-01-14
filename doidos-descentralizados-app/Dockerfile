@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm install
 
 # Instala a biblioteca de multi linguagem
-RUN npm install i18next react-i18next i18next-browser-languagedetector 
+RUN npm install i18next react-i18next i18next-browser-languagedetector
 
 # Instala pacote para terminal :)
 RUN npm install xterm axios
@@ -19,6 +19,9 @@ RUN npm install xterm axios
 # Instala as bibliotecas para estilizar fontes e ícones
 #RUN npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/fontawesome-svg-core
 RUN yarn add @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/fontawesome-svg-core
+
+# Instala o toastify para popups de mensagens mais alegantes
+RUN yarn add react-toastify
 
 # Copia o restante dos arquivos do projeto
 COPY . .

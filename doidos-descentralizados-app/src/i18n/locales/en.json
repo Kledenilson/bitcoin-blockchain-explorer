@@ -22,6 +22,12 @@
     "Sign": "Sign",
     "Configurations": "Configurations",
     "Exit":" Exit",
-    "Interactive Terminal": "Interactive Terminal"
+    "Interactive Terminal": "Interactive Terminal",    
+    "block_query_success": "Block loaded successfully!",
+    "block_query_error": "Failed to fetch block. Please try again.",
+    "transaction_query_success": "Block loaded successfully!",
+    "transaction_query_error": "Failed to fetch Transaction. Please try again.",
+    "balance_query_success": "Wallet balance loaded successfully!",
+    "balance_query_error": "Failed to fetch wallet balance. Please try again."
   }
   

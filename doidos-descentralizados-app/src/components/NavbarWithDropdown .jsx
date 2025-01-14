@@ -15,9 +15,8 @@ const changeLanguage = (lang) => {
 };
 
   return (
-    <nav style={styles.navbar}>
-      <div style={styles.menu}>
-        
+    <nav style={styles.navbar}>      
+      <div style={styles.menu}>        
         <div style={styles.dropdownContainer}>
           <button onClick={toggleDropdown} style={styles.dropdownToggle}>
           <div style={styles.brand}> {t("navbar_options_title")} </div>
@@ -33,7 +32,6 @@ const changeLanguage = (lang) => {
             </ul>
           )}
         </div>
-
         <div style={styles.languageSelect}>
           <select value={i18n.language} 
           onChange={(e) => changeLanguage(e.target.value)}
@@ -41,8 +39,8 @@ const changeLanguage = (lang) => {
             <option value="trans">🇺🇸 English</option>
             <option value="pt">🇧🇷 Português</option>      
           </select>
-        </div>
-      </div>
+        </div>        
+      </div>     
     </nav>
   );
 };
@@ -52,7 +50,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "left",
-    padding: "10px 10px",
+    padding: "0px 10px",
     backgroundColor: "#2c3e50",
     color: "#fff",    
   },

@@ -22,6 +22,12 @@
     "Sign": "Assinar",
     "Configurations": "Configurações",
     "Exit":" Sair",
-    "Interactive Terminal": "Terminal Interativo"
+    "Interactive Terminal": "Terminal Interativo",    
+    "block_query_success": "Bloco carregado com sucesso!",
+    "block_query_error": "Falha ao buscar o bloco. Tente novamente.",
+    "transaction_query_success": "Transação carregada com sucesso!",
+    "transaction_query_error": "Falha ao buscar transação. Tente novamente.", 
+    "balance_query_success": "Saldo da carteira carregado com sucesso!",
+    "balance_query_error": "Falha ao buscar saldo da carteira. Tente novamente."  
   }
   

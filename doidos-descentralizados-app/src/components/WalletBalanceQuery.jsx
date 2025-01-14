@@ -4,6 +4,8 @@ import axios from "../services/api";
 import { useTranslation } from "react-i18next";
 import SearchButton from "./SearchButtom";
 import Modal from "./Modal";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,6 +35,10 @@ function WalletBalanceQuery() {
       setIsModalOpen(true);
     } catch (error) {      
       console.error("Error fetching wallet balance:", error);
+       toast.error(t("balance_query_error"), { 
+                    position: "bottom-right",
+                    autoClose: 3000,
+            });      
     }
   };
 
@@ -50,6 +56,7 @@ function WalletBalanceQuery() {
         value={address}
         onChange={(e) => setAddress(e.target.value)}
       />
+      <ToastContainer/>
       <SearchButton onClick={fetchBalance}>{t("wallet_query_button")}</SearchButton>      
       {isModalOpen && (
         <Modal

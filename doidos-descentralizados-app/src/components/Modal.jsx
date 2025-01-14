@@ -16,9 +16,10 @@ const ModalOverlay = styled.div`
 
 const ModalContent = styled.div`
   background: white;
+  color: gray;
   padding: 20px;
   border-radius: 10px;
-  max-width: 600px;
+  max-width: 800px;
   max-height: 90%;
   width: 90%;
   overflow-y: auto;
@@ -40,6 +41,12 @@ const CloseButton = styled.button`
   }
 `;
 
+const ModalTitle = styled.h2`
+  font-size: 0.8rem;
+  font-weight: 200;
+  font-family: "Orbitron";  
+`;
+
 function Modal({ isOpen, onClose, title, children }) {
   if (!isOpen) return null;
 
@@ -47,7 +54,9 @@ function Modal({ isOpen, onClose, title, children }) {
     <ModalOverlay onClick={(e) => e.target === e.currentTarget && onClose()}>
       <ModalContent>
         <CloseButton onClick={onClose}>&times;</CloseButton>
-        {title && <h2>{title}</h2>}
+        <ModalTitle>
+          {title && <h2>{title}</h2>}
+        </ModalTitle>
         {children}
       </ModalContent>
     </ModalOverlay>

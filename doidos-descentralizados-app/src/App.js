@@ -9,9 +9,6 @@ import { useTranslation } from "react-i18next";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import axios from "./services/api";
-import api from './services/api';
-import InteractiveTerminal from "./InteractiveTerminal";
-import Terminal from "./components/Terminal";
 
 const Container = styled.div`
   display: flex;
@@ -92,8 +89,7 @@ function App() {
         }} />
         <BlockQuery />
         <TransactionQuery />
-        <WalletBalanceQuery />
-        <Terminal/>
+        <WalletBalanceQuery />     
       </Main>
       <Footer />
     </Container>

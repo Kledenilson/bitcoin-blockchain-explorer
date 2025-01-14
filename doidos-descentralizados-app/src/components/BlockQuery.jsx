@@ -4,6 +4,8 @@ import axios from "../services/api";
 import { useTranslation } from "react-i18next";
 import SearchButton from "./SearchButtom";
 import Modal from "./Modal";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,8 +33,12 @@ function BlockQuery() {
       const response = await axios.get(`/block/${blockNumber}`);
       setBlockData(response.data);
       setIsModalOpen(true);
-    } catch (error) {
+    } catch (error) {      
       console.error("Error fetching block:", error);
+      toast.error(t("block_query_error") + " " + error, { 
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -43,14 +49,15 @@ function BlockQuery() {
   const placeholderContent = `${t("block_query_title")} > ${t("block_query_placeholder")}`;
 
   return (
-    <Wrapper>
+    <Wrapper> 
       <Input
         type="text"
         placeholder={placeholderContent}
         value={blockNumber}
         onChange={(e) => setBlockNumber(e.target.value)}
       />
-      <SearchButton onClick={fetchBlock} />
+      <ToastContainer />
+      <SearchButton onClick={fetchBlock} />     
       
       {isModalOpen && (
         <Modal
