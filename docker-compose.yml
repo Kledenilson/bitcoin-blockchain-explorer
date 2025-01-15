@@ -38,6 +38,7 @@ services:
       - ./doidos-descentralizados-app/:/usr/src/app
       - /usr/src/app/node_modules # Evita conflitos com o host
     environment:
+      - REACT_APP_HOST_API=http://localhost:5000/api
       - CHOKIDAR_USEPOLLING=true # Necessário para monitorar alterações no Docker
       - WATCHPACK_POLLING=true   # Adicional para Webpack no hot reload
       - NODE_ENV=development     # Garante que o ambiente é de desenvolvimento
