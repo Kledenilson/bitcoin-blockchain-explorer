@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import NavbarWithDropdown from "./NavbarWithDropdown ";
 import Terminal from "./Terminal";
+import Menu from "./Menu";
 
 const Nav = styled.nav`
   background: #2c3e50;
@@ -23,6 +24,7 @@ function Navbar() {
   return (
     <Nav>    
       <NavbarWithDropdown/>
+      <Menu/>
       <TerminalWrapper>
       <Terminal/>
       </TerminalWrapper>

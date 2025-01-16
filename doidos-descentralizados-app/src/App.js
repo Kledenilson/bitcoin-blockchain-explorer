@@ -1,29 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import BlockQuery from "./components/BlockQuery";
-import TransactionQuery from "./components/TransactionQuery";
-import WalletBalanceQuery from "./components/WalletBalanceQuery";
 import { useTranslation } from "react-i18next";
-import Header from "./components/Header";
-import Dashboard from "./components/Dashboard";
-import axios from "./services/api";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: space-between;
-`;
-
-const Main = styled.main`
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+import Wallets from "./pages/Wallets";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const { t } = useTranslation();
@@ -77,23 +57,19 @@ function App() {
     };
   }, []);
 
-  return (
-    <Container>
-      <Navbar />
-      <Main>
-        <Header/>
-        <Dashboard  stats={{
-          blocks,
-          transactions,
-          wallets,
-        }} />
-        <BlockQuery />
-        <TransactionQuery />
-        <WalletBalanceQuery />     
-      </Main>
-      <Footer />
-    </Container>
-  );
+return (
+  
+    <Router>      
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/wallets" element={<Wallets />} />
+          {/* <Route path="/addresses" element={<Addresses />} />
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/mining" element={<Mining />} /> */}
+        </Routes>  
+    </Router>
+);
+
 }
 
 export default App;

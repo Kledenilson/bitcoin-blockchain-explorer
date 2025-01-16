@@ -16,6 +16,9 @@ RUN npm install i18next react-i18next i18next-browser-languagedetector
 # Instala pacote para terminal :)
 RUN npm install xterm axios
 
+# Instala o pacote para trabalhar com rotas de paginas
+RUN npm install react-router-dom
+
 # Instala as bibliotecas para estilizar fontes e ícones
 #RUN npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/fontawesome-svg-core
 RUN yarn add @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/fontawesome-svg-core
