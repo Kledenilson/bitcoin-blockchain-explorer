@@ -12,9 +12,35 @@ RPC_PASSWORD = os.getenv("RPC_PASSWORD", "pass")
 RPC_HOST = os.getenv("RPC_HOST", "127.0.0.1")
 RPC_PORT = os.getenv("RPC_PORT", "18443")
 
+# RPC connect
 def get_rpc_connection():
     url = f"http://{RPC_USER}:{RPC_PASSWORD}@{RPC_HOST}:{RPC_PORT}"
     return AuthServiceProxy(url)
+
+# Blocks
+@app.route('/api/block/generate', methods=['POST'])
+def generate_blocks():
+    try:
+        num_blocks = request.json.get('num_blocks')
+        address = request.json.get('address')
+
+        if not num_blocks or not address:
+            return jsonify({'error': 'Parâmetros "num_blocks" e "address" são obrigatórios.'}), 400
+
+        rpc = get_rpc_connection()
+        block_hashes = rpc.generatetoaddress(num_blocks, address)
+        return jsonify({'block_hashes': block_hashes})
+    except JSONRPCException as e:
+        return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
+    
+@app.route('/api/block/count', methods=['GET'])
+def get_block_count():
+    try:
+        rpc = get_rpc_connection()
+        block_count = rpc.getblockcount()
+        return jsonify({'block_count': block_count})
+    except JSONRPCException as e:
+        return jsonify({'error': str(e)}), 400
 
 @app.route('/api/block/<int:block_number>', methods=['GET'])
 def get_block_by_number(block_number):
@@ -26,14 +52,58 @@ def get_block_by_number(block_number):
     except JSONRPCException as e:
         return jsonify({'error': str(e)}), 400
 
-@app.route('/api/transaction/<string:txid>', methods=['GET'])
-def get_transaction_by_hash(txid):
+# Wallets   
+@app.route('/api/wallet/newaddress', methods=['GET'])
+def get_new_address():
     try:
         rpc = get_rpc_connection()
-        transaction = rpc.getrawtransaction(txid, True)
-        return jsonify(transaction)
+        address = rpc.getnewaddress()
+        return jsonify({'address': address})
+    except JSONRPCException as e:
+        return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
+
+@app.route('/api/wallet/create', methods=['POST'])
+def create_wallet():
+    try:
+        wallet_name = request.json.get('wallet_name')
+        if not wallet_name:
+            return jsonify({'error': 'Nome da carteira é obrigatório.'}), 400
+
+        rpc = get_rpc_connection()
+        result = rpc.createwallet(wallet_name)
+        return jsonify(result)
+    except JSONRPCException as e:
+        return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': f'Erro inesperado: {str(e)}'}), 500
+
+@app.route('/api/wallets', methods=['GET'])
+def list_wallets():
+    try:
+        rpc = get_rpc_connection()
+        wallets = rpc.listwallets()
+        return jsonify({'wallets': wallets})
+    except JSONRPCException as e:
+        return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
+
+@app.route('/api/wallet/count', methods=['GET'])
+def get_wallet_count():
+    try:
+        rpc = get_rpc_connection()
+        wallets = rpc.listwallets()
+        wallet_count = len(wallets)
+        return jsonify({'wallet_count': wallet_count, 'wallets': wallets})
     except JSONRPCException as e:
         return jsonify({'error': str(e)}), 400
+    
+@app.route('/api/wallet/balance', methods=['GET'])
+def get_wallet_balance():
+    try:
+        rpc = get_rpc_connection()
+        balance = rpc.getbalance()
+        return jsonify({'balance': balance})
+    except JSONRPCException as e:
+        return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
 
 @app.route('/api/wallet/balance/<string:address>', methods=['GET'])
 def get_balance_by_address(address):
@@ -45,6 +115,8 @@ def get_balance_by_address(address):
     except JSONRPCException as e:
         return jsonify({'error': str(e)}), 400
 
+
+# Transactions
 @app.route('/api/transaction/create', methods=['POST'])
 def create_transaction():
     try:
@@ -81,12 +153,27 @@ def create_transaction():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/block/count', methods=['GET'])
-def get_block_count():
+@app.route('/api/transaction/send', methods=['POST'])
+def send_transaction():
+    try:
+        address = request.json.get('address')
+        amount = request.json.get('amount')
+
+        if not address or not amount:
+            return jsonify({'error': 'Parâmetros "address" e "amount" são obrigatórios.'}), 400
+
+        rpc = get_rpc_connection()
+        txid = rpc.sendtoaddress(address, amount)
+        return jsonify({'txid': txid})
+    except JSONRPCException as e:
+        return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
+
+@app.route('/api/transaction/<string:txid>', methods=['GET'])
+def get_transaction_by_hash(txid):
     try:
         rpc = get_rpc_connection()
-        block_count = rpc.getblockcount()
-        return jsonify({'block_count': block_count})
+        transaction = rpc.getrawtransaction(txid, True)
+        return jsonify(transaction)
     except JSONRPCException as e:
         return jsonify({'error': str(e)}), 400
 
@@ -107,17 +194,8 @@ def get_transaction_count():
     except JSONRPCException as e:
         return jsonify({'error': str(e)}), 400
 
-@app.route('/api/wallet/count', methods=['GET'])
-def get_wallet_count():
-    try:
-        rpc = get_rpc_connection()
-        wallets = rpc.listwallets()
-        wallet_count = len(wallets)
-        return jsonify({'wallet_count': wallet_count, 'wallets': wallets})
-    except JSONRPCException as e:
-        return jsonify({'error': str(e)}), 400
-        
 
+# RPC remote commands terminal
 @app.route('/api/rpc-command', methods=['POST'])
 def execute_rpc_command():
     try:        
