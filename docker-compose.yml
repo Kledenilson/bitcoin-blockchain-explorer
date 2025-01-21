@@ -9,7 +9,8 @@ services:
     volumes:
       - ./api/bitcoin-data:/root/.bitcoin # Criei um volume persistente
       - ./api/init.sh:/init.sh # Script sh para gerar a carteira inicial e blocos
-    restart: unless-stopped
+      - ./api/createWallets.txt:/createWallets.txt # Lista inicial de carteiras para adicionar      
+    restart: unless-stopped    
 
   doidos-descentralizados-api:
     build:
@@ -17,6 +18,8 @@ services:
     container_name: doidos-descentralizados-api
     ports:
       - 5000:5000
+    volumes:
+    - ./api:/app
     environment:
       - RPC_USER=user
       - RPC_PASSWORD=pass

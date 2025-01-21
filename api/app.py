@@ -61,6 +61,45 @@ def get_new_address():
         return jsonify({'address': address})
     except JSONRPCException as e:
         return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
+    
+@app.route('/api/wallet/details/<string:wallet_name>', methods=['GET'])
+def get_wallet_details(wallet_name):
+    try:
+        rpc = get_rpc_connection()
+        
+        loadedW = rpc.walletloaded
+        
+        # Tenta obter informações da carteira
+        try:
+            details = rpc.getwalletinfo()
+        except JSONRPCException as e:
+            # Se a carteira não estiver carregada, carregue-a
+            loaded_wallets = rpc.listwallets()
+        if wallet_name not in loaded_wallets:
+            if "Wallet file not specified" or "No wallet is loaded" or "Wallet file verification failed" in str(e):                
+                rpc.loadwallet(wallet_name)
+            else:
+                if "is already loaded" not in str(e):                            
+                    details = rpc.getwalletinfo()
+                else:                   
+                    rpc.loadwallet(wallet_name)                
+                raise e            
+
+        return jsonify(details)
+    
+    #  loaded_wallets = rpc.listwallets()
+    #     if wallet_name not in loaded_wallets:            
+    #         details = rpc.loadwallet(wallet_name)
+    #     else:
+    #         details = rpc.getwalletinfo()
+            
+    #     return jsonify(details)
+
+    except JSONRPCException as e:
+            return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': f'Erro inesperado: {str(e)}'}), 500
+
 
 @app.route('/api/wallet/create', methods=['POST'])
 def create_wallet():
@@ -76,15 +115,68 @@ def create_wallet():
         return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
     except Exception as e:
         return jsonify({'error': f'Erro inesperado: {str(e)}'}), 500
+    
+def get_wallet_data(rpc, wallets):
+    
+    loaded_wallets = []
+        
+    for wallet_name in wallets:
+        # Seleciona a carteira (ativa o contexto)
+        rpc.wallet(wallet_name)
 
-@app.route('/api/wallets', methods=['GET'])
+        # Obtém o endereço principal da carteira
+        address_info = rpc.getnewaddress("", "bech32")
+
+        # Adiciona nome e endereço principal à lista
+        loaded_wallets.append({
+            "name": wallet_name,
+            "address": address_info
+        })
+
+    return loaded_wallets
+  
+@app.route('/api/wallet', methods=['POST'])
 def list_wallets():
     try:
+        wallet_name = request.json.get('wallet_name')
+        if not wallet_name:
+            return jsonify({'error': 'Nome da carteira é obrigatório.'}), 400
+
         rpc = get_rpc_connection()
-        wallets = rpc.listwallets()
-        return jsonify({'wallets': wallets})
+        result = rpc.wallet(wallet_name)
+        return jsonify(result)
     except JSONRPCException as e:
         return jsonify({'error': f'Erro RPC: {str(e)}'}), 400
+    except Exception as e:
+        return jsonify({'error': f'Erro inesperado: {str(e)}'}), 500
+    
+# @app.route('/api/wallets', methods=['GET'])
+# def list_wallets():
+#     try:
+#         rpc = get_rpc_connection()
+#         # Liste as carteiras carregadas
+#         loaded_wallets = rpc.listwallets()
+
+#         print(loaded_wallets)
+#         exit
+#         wallets = []
+#         for wallet_name in loaded_wallets:
+#             # Seleciona a carteira (ativa o contexto)
+#             rpc.wallet(wallet_name)
+
+#             # Obtém o endereço principal da carteira
+#             address_info = rpc.getnewaddress("", "bech32")
+
+#             # Adiciona nome e endereço principal à lista
+#             wallets.append({
+#                 "name": wallet_name,
+#                 "address": address_info
+#             })
+
+#         return jsonify({"wallets": wallets})
+#     except JSONRPCException as e:
+#         return jsonify({"error": str(e)}), 500
+
 
 @app.route('/api/wallet/count', methods=['GET'])
 def get_wallet_count():

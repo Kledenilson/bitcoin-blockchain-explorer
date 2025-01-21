@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import Terminal from "../pages/Terminal";
 
 const NavbarWithDropdown = () => {
   
@@ -14,6 +16,8 @@ const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
 };
 
+const fontOrbitron = "'Orbitron', sans-serif";
+
   return (
     <nav style={styles.navbar}>      
       <div style={styles.menu}>        
@@ -23,10 +27,26 @@ const changeLanguage = (lang) => {
           </button>
           {dropdownOpen && (
             <ul style={styles.dropdownMenu}>
-              <li style={styles.dropdownItem}>{t("Wallet")}</li>
-              <li style={styles.dropdownItem}>{t("Transactions")}</li>
-              <li style={styles.dropdownItem}>{t("Send")}</li>
-              <li style={styles.dropdownItem}>{t("Sign")}</li>
+              <li style={styles.dropdownItem}>
+                <Link to="/" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("Dashboard")}</Link>
+              </li>
+              <ul>
+                <li style={styles.dropdownItem}>
+                  <Link to="/wallets" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("Wallet")}</Link>
+                </li>
+                <li style={styles.dropdownItem}>
+                  <Link to="/cli" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("WalletCLI")}</Link>
+                </li>
+                <li style={styles.dropdownItem}>
+                  <Link to="/transactions" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("Transactions")}</Link>
+                </li>
+                <li style={styles.dropdownItem}>
+                  <Link to="/address" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("Send")}</Link>
+                </li>
+              </ul>
+              <li style={styles.dropdownItem}>
+                <Link to="/mining" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("Mining")}</Link>
+              </li>
               <li style={styles.dropdownItem}>{t("Configurations")}</li>
               <li style={styles.dropdownItem}>{t("Exit")}</li>
             </ul>

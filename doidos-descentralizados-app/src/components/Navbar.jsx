@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import NavbarWithDropdown from "./NavbarWithDropdown ";
-import Terminal from "./Terminal";
+import Terminal from "../pages/Terminal";
 import Menu from "./Menu";
 
 const Nav = styled.nav`
@@ -23,10 +23,8 @@ const TerminalWrapper = styled.div`
 function Navbar() {  
   return (
     <Nav>    
-      <NavbarWithDropdown/>
-      <Menu/>
-      <TerminalWrapper>
-      <Terminal/>
+      <NavbarWithDropdown/>   
+      <TerminalWrapper>      
       </TerminalWrapper>
     </Nav>
      

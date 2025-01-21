@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Terminal } from "xterm";
+import { useTranslation } from "react-i18next";
 import "xterm/css/xterm.css";
 import axios from "./services/api";
 
@@ -9,6 +10,7 @@ const InteractiveTerminal = ( ) => {
     const backendUrl = '/rpc-command';
     const terminalRef = useRef(null);
     const [term, setTerm] = useState(null);
+    const { t } = useTranslation();
   
     useEffect(() => {
       
@@ -21,7 +23,8 @@ const InteractiveTerminal = ( ) => {
         },
       });
       terminal.open(terminalRef.current);
-      terminal.write("Bem-vindo ao terminal interativo da Blockchain Doidos Descentralizados!\r\n");
+      const title = t("WalletCLI");      
+      terminal.write( title + " - Doidos Descentralizados!\r\n");
       terminal.write("Digite o comando e pressione ENTER.\r\n\r\n");
       setTerm(terminal);
         
@@ -112,6 +115,7 @@ const InteractiveTerminal = ( ) => {
           height: "auto",
           overflow: "hidden",
           border: "1px solid #333",
+          margin: "20px",
         }}
       ></div>
     );
