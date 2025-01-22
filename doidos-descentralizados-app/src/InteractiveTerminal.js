@@ -25,7 +25,7 @@ const InteractiveTerminal = ( ) => {
       terminal.open(terminalRef.current);
       const title = t("WalletCLI");      
       terminal.write( title + " - Doidos Descentralizados!\r\n");
-      terminal.write("Digite o comando e pressione ENTER.\r\n\r\n");
+      terminal.write(t("type_command") + "\r\n\r\n");
       setTerm(terminal);
         
       let command = "";
@@ -67,7 +67,7 @@ const InteractiveTerminal = ( ) => {
       }
     
       if (!command.trim()) {
-        terminalInstance.write("Comando vazio. Tente novamente.\r\n");
+        terminalInstance.write(t("no_command") + "\r\n");
         return;
       }
 
@@ -89,7 +89,7 @@ const InteractiveTerminal = ( ) => {
      
           const output =
             typeof response.data.result === "object"
-              ? JSON.stringify(response.data.result, null, 2) // Formatação legível
+              ? JSON.stringify(response.data.result, null, 2)
               : response.data.result;
     
           output.split("\n").forEach((line) => {

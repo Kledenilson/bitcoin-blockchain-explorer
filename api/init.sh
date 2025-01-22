@@ -9,18 +9,18 @@ done
 echo "Bitcoin Core está ativo!"
 
 # Nome do arquivo com a lista de carteiras
-arquivo="createWallets.txt"
+arquivo="createtWallets.txt"
 
 # Loop para percorrer cada linha do arquivo
 while IFS= read -r nome; do
     if [ -n "$nome" ]; then
         echo "Verificando carteira: $nome"
 
-        if bitcoin-cli -rpcwallet="$nome" getwalletinfo > /dev/null 2>&1; then
+        if bitcoin-cli -regtest -rpcwallet="$nome" getwalletinfo > /dev/null 2>&1; then
             echo "Carteira $nome já existe. Pulando criação."
         else
             echo "Criando carteira para: $nome"
-            if bitcoin-cli createwallet "$nome" > /dev/null 2>&1; then
+            if bitcoin-cli -regtest createwallet "$nome" > /dev/null 2>&1; then
                 echo "Carteira $nome criada com sucesso."
             else
                 echo "Erro ao criar a carteira $nome."
@@ -32,7 +32,7 @@ done < "$arquivo"
 echo "Carteiras criadas com sucesso!"
 
 echo "Minerando blocos iniciais..."
-CURRENT_BLOCKS=$(bitcoin-cli getblockcount)
+CURRENT_BLOCKS=$(bitcoin-cli -regtest getblockcount)
 NUMBER_BLOCKS=$(shuf -i 1000-10000 -n 1)
 if [ "$CURRENT_BLOCKS" -lt "$NUMBER_BLOCKS" ]; then
     echo "Gerando $NUMBER_BLOCKS blocos..."
@@ -41,7 +41,7 @@ if [ "$CURRENT_BLOCKS" -lt "$NUMBER_BLOCKS" ]; then
     carteira_ativa=$(head -n 1 "$arquivo")
 
     # Gera um novo endereço a partir da carteira especificada
-    ADDRESS=$(bitcoin-cli -rpcwallet="$carteira_ativa" getnewaddress)
+    ADDRESS=$(bitcoin-cli -regtest -rpcwallet="$carteira_ativa" getnewaddress)
     
     # Gera os blocos para o endereço
     if bitcoin-cli -regtest -rpcwallet="$carteira_ativa" generatetoaddress $NUMBER_BLOCKS $ADDRESS; then

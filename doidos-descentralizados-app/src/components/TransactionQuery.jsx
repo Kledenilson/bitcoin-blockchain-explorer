@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "../services/api";
+import { getError } from "../services/helpers";
 import { useTranslation } from "react-i18next";
 import SearchButton from "./SearchButtom";
 import Modal from "./Modal";
@@ -73,11 +74,11 @@ function TransactionQuery() {
       setTransactionData(response.data);
       setIsModalOpen(true);
     } catch (error) {
-      console.error("Error fetching transaction:", error);
-      toast.error(t("transaction_query_error" + error), { 
-              position: "bottom-right",
-              autoClose: 3000,
+      toast.error(t("transaction_query_error") + getError(error), { 
+        position: "bottom-right",
+        autoClose: 3000,
       });      
+      console.error(t("transaction_query_error"), getError(error));
     }
   };
 

@@ -27,6 +27,7 @@
     "block_query_error": "Failed to fetch block. Please try again.",
     "transaction_query_success": "Block loaded successfully!",
     "transaction_query_error": "Failed to fetch Transaction. Please try again.",
+    "transaction_create_error": "Failed to create transaction.", 
     "balance_query_success": "Wallet balance loaded successfully!",
     "balance_query_error": "Failed to fetch wallet balance. Please try again.",
     "Dashboard": "Dashboard",
@@ -88,7 +89,22 @@
     "Example": "Example",
     "Help": "Help",
     "wallet_details": "Wallet Details",
-    "view_wallet": "View Wallet"  
-    
+    "view_wallet": "View Wallet",
+    "error_sending_transaction": "Error sending transaction.",
+    "send_transaction": "Send transaction",
+    "error_wallet_list": "Wallet list error.",
+    "error_create_wallet":  "Error create wallet.",
+    "error_fetching_wallet_details": "Error fetching wallet details.",
+    "mining_interface": "Mining Blocks",
+    "reward_address": "Reward address",
+    "block_count": "Blocks count",
+    "mine_blocks":"Mine blocks",
+    "transaction_address": "Transaction to address",
+    "transaction_amount": "Amount to send",
+    "mining_in_progress": "Mining...",
+    "mining_success": "Mining success.",
+    "type_command": "Type the command and press ENTER",
+    "no_command": "Empty command. Please try again.",
+    "transfer_amount": "Amount"   
   }
   

@@ -29,8 +29,7 @@ const fontOrbitron = "'Orbitron', sans-serif";
             <ul style={styles.dropdownMenu}>
               <li style={styles.dropdownItem}>
                 <Link to="/" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("Dashboard")}</Link>
-              </li>
-              <ul>
+              </li>             
                 <li style={styles.dropdownItem}>
                   <Link to="/wallets" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("Wallet")}</Link>
                 </li>
@@ -40,15 +39,14 @@ const fontOrbitron = "'Orbitron', sans-serif";
                 <li style={styles.dropdownItem}>
                   <Link to="/transactions" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("Transactions")}</Link>
                 </li>
-                <li style={styles.dropdownItem}>
+                {/* <li style={styles.dropdownItem}>
                   <Link to="/address" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("Send")}</Link>
-                </li>
-              </ul>
+                </li> */}             
               <li style={styles.dropdownItem}>
                 <Link to="/mining" style={{ color: "black", textDecoration: "none", fontFamily: fontOrbitron }}>{t("Mining")}</Link>
               </li>
-              <li style={styles.dropdownItem}>{t("Configurations")}</li>
-              <li style={styles.dropdownItem}>{t("Exit")}</li>
+              {/* <li style={styles.dropdownItem}>{t("Configurations")}</li>
+              <li style={styles.dropdownItem}>{t("Exit")}</li> */}
             </ul>
           )}
         </div>
@@ -110,6 +108,10 @@ const styles = {
     padding: "10px 20px",
     cursor: "pointer",
     fontSize: "14px",
+    transition: "background-color 0.3s ease",
+    ":hover": {
+      backgroundColor: "#f0f0f0",
+    },    
   },
   languageSelect: {
     color: "#fff",

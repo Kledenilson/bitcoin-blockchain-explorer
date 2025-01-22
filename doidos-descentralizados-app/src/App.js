@@ -4,6 +4,7 @@ import Wallets from "./pages/Wallets";
 import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
 import Terminal from "./pages/Terminal";
+import Mining from "./pages/MIning";
 
 function App() {
   // const { t } = useTranslation();
@@ -55,7 +56,7 @@ function App() {
   //     clearInterval(transactionsInterval);
   //     clearInterval(walletsInterval);
   //   };
-  // }, []);
+  // }, []); 
 
 return (  
     <Router>      
@@ -65,7 +66,7 @@ return (
           <Route path="/cli" element={<Terminal />} />
           {/* <Route path="/addresses" element={<Addresses} /> */}
           <Route path="/transactions" element={<Transactions />} />
-          {/* <Route path="/mining" element={<Mining />} />  */}
+          <Route path="/mining" element={<Mining />} /> 
         </Routes>  
     </Router>
 );

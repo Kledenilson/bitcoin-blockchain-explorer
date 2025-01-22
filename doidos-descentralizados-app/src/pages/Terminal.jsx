@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 import Navbar from "../components/Navbar";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Button, Container, InputWrapper, Main, Title, Wrapper } from "../components/Styles";
 import Modal from "../components/Modal";
 import InteractiveTerminal from "../InteractiveTerminal";
 
 function Terminal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para o campo de busca
+
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [searchTerm, setSearchTerm] = useState("");
   const { t } = useTranslation();
 
   const commands = [
@@ -64,11 +66,12 @@ function Terminal() {
     <Container>
       <Navbar />
       <Main>
+      <Header/>      
         <Title>{t("WalletCLI")}</Title>     
           <Button style={{maginBottom: '20px'}} onClick={() => setIsModalOpen(true)}>{t("Help") + " - " +walletCommandsTitle}</Button>          
         <Wrapper>          
           <InteractiveTerminal />
-        </Wrapper>
+        </Wrapper>    
       </Main>
       <Footer />
       {isModalOpen && (
@@ -97,7 +100,7 @@ function Terminal() {
                   </CommandItem>
                 ))
               ) : (
-                <NoResults>No commands found.</NoResults>
+                <NoResults>{t("no_commands")}</NoResults>
               )}
             </CommandList>
           </ModalContent>
@@ -109,11 +112,10 @@ function Terminal() {
 
 export default Terminal;
 
-// Estilos adicionais para a modal e busca
 const ModalContent = styled.div`
   padding: 20px;
   max-height: 80vh;
-  overflow-y: auto; /* Adiciona scroll ao conteúdo */
+  overflow-y: auto;
   text-align: left;
 `;
 
