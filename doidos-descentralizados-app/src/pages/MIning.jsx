@@ -15,6 +15,8 @@ import {
   Main,
   Title,
 } from "../components/Styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane, faSync } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -97,8 +99,13 @@ const Mining = () => {
           <Button 
           onClick={mineBlocks} disabled={miningInProgress}
           style={{margin: '10px'}}
-          >
-            {miningInProgress ? t("mining_in_progress") : t("mine_blocks")}
+          > 
+            {miningInProgress ? (
+              <FontAwesomeIcon icon={faSync} spin />
+            ) : (
+              <FontAwesomeIcon icon={faPaperPlane} />
+            )}
+              
           </Button>
         </InputWrapper>
         <ToastContainer />

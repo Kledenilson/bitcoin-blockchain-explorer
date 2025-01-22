@@ -65,8 +65,7 @@ function Terminal() {
   return (
     <Container>
       <Navbar />
-      <Main>
-      <Header/>      
+      <Main>         
         <Title>{t("WalletCLI")}</Title>     
           <Button style={{maginBottom: '20px'}} onClick={() => setIsModalOpen(true)}>{t("Help") + " - " +walletCommandsTitle}</Button>          
         <Wrapper>          

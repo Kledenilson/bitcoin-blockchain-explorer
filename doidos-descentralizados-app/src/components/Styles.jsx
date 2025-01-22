@@ -52,8 +52,8 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  background: #3498db;
-  color: white;
+  background: transparent; //#3498db;
+  color: gray;
   font-size: 0.8rem;
   padding: 8px 10px;
   border: none;
@@ -62,7 +62,8 @@ export const Button = styled.button`
   transition: background 0.3s;
 
   &:hover {
-    background: #2980b9;
+    //background: #2980b9;
+    color: #3498db;
   }
 `;
 
@@ -77,7 +78,7 @@ export const TableTable = styled.table`
 `;
 
 export const TableHeader = styled.thead`
-  background: #2c3e50;
+  background: gray; //#2c3e50;
   color: white; 
   font-size: 1rem;
   font-weight: 100;
@@ -109,8 +110,10 @@ export const Pagination = styled.div`
 `;
 
 export const PaginationButton = styled.button`
-  background: ${({ active }) => (active ? "#3498db" : "#ecf0f1")};
-  color: ${({ active }) => (active ? "white" : "#2c3e50")};
+  background: ${({ active }) => (active ? "#ecf0f1"
+    //"#3498db" 
+    : "transparent")};
+  color: ${({ active }) => (active ? "gray" : "#2c3e50")};
   border: none;
   border-radius: 5px;
   padding: 8px 12px;
