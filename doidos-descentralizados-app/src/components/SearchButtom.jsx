@@ -6,8 +6,8 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Buttom = styled.button`
   padding: 8px;
-  background:#2c92d6;
-  color: white;
+  background: transparent;//#2c92d6;
+  color: gray;
   border: none;
   display: flex;
   align-items: center;
@@ -17,7 +17,8 @@ const Buttom = styled.button`
   border-radius: 5px;
 
   &:hover {
-    background:#0a466e;
+   // background:#3498db //#0a466e;
+   color: #3498db;
   }
 `;
 

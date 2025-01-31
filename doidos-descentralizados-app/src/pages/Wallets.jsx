@@ -20,6 +20,8 @@ import {
   TableRow,
   TableTable,
 } from "../components/Styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../components/Modal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -150,23 +152,23 @@ const Wallets = () => {
           <Button 
           onClick={createWallet}
           style={{margin: '10px'}}          
-          >{t("create_wallet")}</Button>
+          ><FontAwesomeIcon icon={faPlusCircle}/></Button>
         </InputWrapper>
         {wallets.length > 0 ? (
           <TableTable>
             <TableHeader>
               <tr>
-                <th>{t("wallet_name")}</th>
-                <th>{t("action")}</th>
+                <th style={{textAlign: 'center'}}>{t("wallet_name")}</th>
+                <th style={{textAlign: 'center'}}>{t("action")}</th>
               </tr>
             </TableHeader>
             <tbody>
               {paginatedWallets.map((wallet, index) => (
                 <TableRow key={index}>
-                  <TableCell>{wallet}</TableCell>
+                  <TableCell style={{textAlign: 'center'}}>{wallet}</TableCell>
                   <TableCell>
                     <Button onClick={() => fetchWalletDetails(wallet)}>
-                      {t("view_wallet")}
+                      <FontAwesomeIcon icon={faSearch}/>
                     </Button>
                   </TableCell>
                 </TableRow>

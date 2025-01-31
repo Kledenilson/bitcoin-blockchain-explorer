@@ -105,6 +105,8 @@
     "mining_success": "Mining success.",
     "type_command": "Type the command and press ENTER",
     "no_command": "Empty command. Please try again.",
-    "transfer_amount": "Amount"   
+    "transfer_amount": "Amount",
+    "mining_missing_fields": "Minig missing fields.",
+    "transaction_missing_fields": "Transaction missing fields."   
   }
   

@@ -110,10 +110,10 @@ def get_wallet_count():
     except JSONRPCException as e:
         return jsonify({"status": "error", "message": f'RPC error: {str(e)}'}), 400
 
-@app.route('/api/wallet/balance', methods=['GET'])
-def get_wallet_balance():
+@app.route('/api/wallet/balance/<string:address>', methods=['GET'])
+def get_wallet_balance(address):
     try:
-        rpc = get_rpc_connection()
+        rpc = get_rpc_connection()       
         balance = rpc.getbalance()
         return jsonify({"status": "success", "message": "Wallet balance retrieved successfully!", "balance": balance})
     except JSONRPCException as e:
@@ -162,7 +162,7 @@ def get_transaction_count():
 @app.route('/api/transactions/list', methods=['GET'])
 def list_transactions():
     try:
-        wallet_name = request.args.get('wallet_name', '')
+        wallet_name = request.args.get('wallet_name', '')        
         count = int(request.args.get('count', 10))
         skip = int(request.args.get('skip', 0))
 
