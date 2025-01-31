@@ -30,7 +30,7 @@ function WalletBalanceQuery() {
 
   const fetchBalance = async () => {
     try {
-      const response = await axios.get(`/wallet/balance/${address}`);
+      const response = await axios.get(`/wallet/balance?address=${address}`);
       setWalletBalance(response.data.balance);
       setIsModalOpen(true);
     } catch (error) {      

@@ -1,34 +1,34 @@
 services:
-  bitcoin-regtest:
-    image: bitcoin/bitcoin
-    container_name: bitcoin-regtest
-    command: ["bitcoind", "-datadir=/root/.bitcoin", "-regtest", "-server=1", "-rpcallowip=0.0.0.0/0", "-rpcbind=0.0.0.0", "-rpcuser=user", "-rpcpassword=pass", "-txindex=1", "-printtoconsole"]
-    ports:
-      - 18443:18443
-      - 18444:18444
-    volumes:
-      - ./api/bitcoin-data:/root/.bitcoin # Criei um volume persistente
-      - ./api/init.sh:/init.sh # Script sh para gerar a carteira inicial e blocos
-      - ./api/createWallets.txt:/createWallets.txt # Lista inicial de carteiras para adicionar      
-    restart: unless-stopped    
+  # bitcoin-regtest:
+  #   image: bitcoin/bitcoin
+  #   container_name: bitcoin-regtest
+  #   command: ["bitcoind", "-datadir=/root/.bitcoin", "-regtest", "-server=1", "-rpcallowip=0.0.0.0/0", "-rpcbind=0.0.0.0", "-rpcuser=user", "-rpcpassword=pass", "-txindex=1", "-printtoconsole"]
+  #   ports:
+  #     - 18443:18443
+  #     - 18444:18444
+  #   volumes:
+  #     - ./api/bitcoin-data:/root/.bitcoin # Criei um volume persistente
+  #     - ./api/init.sh:/init.sh # Script sh para gerar a carteira inicial e blocos
+  #     - ./api/createWallets.txt:/createWallets.txt # Lista inicial de carteiras para adicionar      
+  #   restart: unless-stopped    
 
-  doidos-descentralizados-api:
-    build:
-      context: ./api
-    container_name: doidos-descentralizados-api
-    ports:
-      - 5000:5000
-    volumes:
-    - ./api:/app
-    environment:
-      - RPC_USER=user
-      - RPC_PASSWORD=pass
-      - RPC_HOST=bitcoin-regtest
-      - RPC_PORT=18443
-      - FLASK_RUN_HOST=0.0.0.0
-    depends_on:
-      - bitcoin-regtest
-    restart: unless-stopped
+  # doidos-descentralizados-api:
+  #   build:
+  #     context: ./api
+  #   container_name: doidos-descentralizados-api
+  #   ports:
+  #     - 5000:5000
+  #   volumes:
+  #   - ./api:/app
+  #   environment:
+  #     - RPC_USER=user
+  #     - RPC_PASSWORD=pass
+  #     - RPC_HOST=bitcoin-regtest
+  #     - RPC_PORT=18443
+  #     - FLASK_RUN_HOST=0.0.0.0
+  #   depends_on:
+  #     - bitcoin-regtest
+  #   restart: unless-stopped
 
   doidos-descentralizados-app:
     build:
@@ -45,5 +45,5 @@ services:
       - CHOKIDAR_USEPOLLING=true # Necessário para monitorar alterações no Docker
       - WATCHPACK_POLLING=true   # Adicional para Webpack no hot reload
       - NODE_ENV=development     # Garante que o ambiente é de desenvolvimento
-    depends_on:
-      - doidos-descentralizados-api
+    # depends_on:
+    #   - doidos-descentralizados-api

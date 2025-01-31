@@ -40,8 +40,8 @@ const Transactions = () => {
 
   const createTransaction = async () => {
     try {
-      await axios.post("/transaction/create", { Transaction_name: newTransactionName });
-      setNewTransactionName("");
+      await axios.post("/transaction/send", { Transaction_name: newTransactionName });
+      setNewTransactionName(newTransactionName);
       toast.success(t("Transaction_created_success"), { 
         position: "bottom-right",
         autoClose: 3000,
