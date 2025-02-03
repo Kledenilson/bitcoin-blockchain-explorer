@@ -52,7 +52,7 @@ const Mining = () => {
         address,
         num_blocks: parseInt(blockCount),
       });
-
+console.log('Dados da mineração:', res);
       toast.success(
         t("mining_success") + ` ${res.data.message}`,
         {
