@@ -54,7 +54,7 @@ const Mining = () => {
       });
 console.log('Dados da mineração:', res);
       toast.success(
-        t("mining_success") + ` ${res.data.message}`,
+        t("mining_success"),
         {
           position: "bottom-right",
           autoClose: 3000,

@@ -45,13 +45,13 @@ const Transactions = () => {
   const createTransaction = async () => {
     try {
       await axios.post("/transaction/send", { address: address, amount: amount });
-      setAddres(address)
+      setNewTransactionName(address)
       setAmount(amount)
       toast.success(t("Transaction_created_success"), { 
         position: "bottom-right",
         autoClose: 3000,
       });
-      fetchTransactions();
+      // fetchTransactions();
     } catch (error) {
       toast.error(t("transaction_create_error") + " " + getError(error), { 
         position: "bottom-right",
